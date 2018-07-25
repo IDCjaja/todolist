@@ -10,20 +10,29 @@
         {{ item.label }}
       </li>
     </ul>
+    <p>child tells me: {{childWords}}</p>
+    <component-a
+      msgfromfather='you die'
+      v-on:child-tell-me-somthing='listenToMyBoy'></component-a>
     <router-view/>
   </div>
 </template>
 
 <script>
 import Store from './store'
+import ComponentA from './components/componentA'
 export default {
   name: 'App',
   data: function () {
     return {
       title: 'this is a todo list',
       items: Store.fetch(),
-      newItem: ''
+      newItem: '',
+      childWords: ''
     }
+  },
+  components: {
+    ComponentA
   },
   watch: {
     items: {
@@ -44,6 +53,9 @@ export default {
       })
       this.newItem = ''
       Store.save()
+    },
+    listenToMyBoy (msg) {
+      this.childWords = msg
     }
   }
 }
