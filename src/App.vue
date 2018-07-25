@@ -15,13 +15,22 @@
 </template>
 
 <script>
+import Store from './store'
 export default {
   name: 'App',
   data: function () {
     return {
       title: 'this is a todo list',
-      items: [],
+      items: Store.fetch(),
       newItem: ''
+    }
+  },
+  watch: {
+    items: {
+      handler: function (items) {
+        Store.save(items)
+      },
+      deep: true
     }
   },
   methods: {
@@ -34,6 +43,7 @@ export default {
         isFinished: false
       })
       this.newItem = ''
+      Store.save()
     }
   }
 }
