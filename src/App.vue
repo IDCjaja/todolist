@@ -26,21 +26,13 @@ export default {
   data: function () {
     return {
       title: 'this is a todo list',
-      items: Store.fetch(),
+      items: [],
       newItem: '',
       childWords: ''
     }
   },
   components: {
     ComponentA
-  },
-  watch: {
-    items: {
-      handler: function (items) {
-        Store.save(items)
-      },
-      deep: true
-    }
   },
   methods: {
     toggleFinish: function(item) {
@@ -52,7 +44,6 @@ export default {
         isFinished: false
       })
       this.newItem = ''
-      Store.save()
     },
     listenToMyBoy (msg) {
       this.childWords = msg
